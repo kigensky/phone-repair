@@ -1,0 +1,28 @@
+{% extends 'repair/base.html'%}
+{% block content %}
+
+<div class="row pt-3">
+  <div class="col-md-12">
+    <p><strong> Repair Question </strong> {{ now | date:"D d M Y"}}</p>
+  </div>
+</div>
+<div class="row">
+      {% for repair in cards %}
+    <div class="col-md-4 mb-5">
+      <div class="card border-0 shadow h-100 ">
+       
+        <div class="card-body">
+          <h5 class="repair-title"><strong>{{repair.title}}</strong></h5>
+          
+        <p class='text-muted'>{{ repair.description}}</p>
+        </div>
+      <div class="card-footer">
+      <a class='btn btn-danger float-left' href="{% url 'repair-delete' repair.id %}">Delete</a>
+      <a class='btn btn-warning float-right' href="{% url 'repair-update' repair.id %}">update</a>
+      </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
