@@ -37,8 +37,9 @@
       background-color: #315B96;
   }
   body{
-    color: white;
+    color: rgb(158, 17, 17);
     background-attachment: fixed;
+    background-image: url(https://images7.alphacoders.com/334/334533.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; 
@@ -63,3 +64,31 @@
     background-color: rgba(255, 255, 255, 0.924);  
     color: black;
 }
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+
+.navbar-custom {
+    background-color: rgb(158, 17, 17);
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff81;
+} 
