@@ -1,28 +1,32 @@
 {% extends 'repair/base.html'%}
 {% block content %}
+{% load static %}
+
 
 <div class="row pt-3">
-  <div class="col-md-12">
+  <div class="col-md-8 mx-auto">
     <p><strong> Repair Question </strong> {{ now | date:"D d M Y"}}</p>
   </div>
 </div>
 <div class="row">
-      {% for repair in cards %}
-    <div class="col-md-4 mb-5">
-      <div class="card border-0 shadow h-100 ">
+      {% for repair in repairs %}
+    <div class="col-md-8 mx-auto"">
+      <div class="card border-100 shadow h-100 ">
        
         <div class="card-body">
-          <h5 class="repair-title"><strong>{{repair.title}}</strong></h5>
+          <h5 class="card-title"><strong>{{repair.title}}</strong></h5>
           
         <p class='text-muted'>{{ repair.description}}</p>
         </div>
       <div class="card-footer">
-      <a class='btn btn-danger float-left' href="{% url 'repair-delete' repair.id %}">Delete</a>
-      <a class='btn btn-warning float-right' href="{% url 'repair-update' repair.id %}">update</a>
+      
+      <a href="{% url 'repair-delete' repair.id %}"class='btn btn-danger btn-circle btn-sm m-2 shadow'><i class="fas fa-trash-alt"></i></a> 
+      <a href="{% url 'repair-update' repair.id %}"class='btn btn-warning btn-circle btn-sm m-2 shadow'><i class="fas fa-edit"></i></a> 
       </div>
       </div>
     </div>
     {% endfor %}
+  </div>
   </div>
 </div>
 {% endblock %}
