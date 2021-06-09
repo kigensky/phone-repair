@@ -90,7 +90,7 @@ if config('MODE')=="dev":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'awwards3',
+            'NAME': 'repair',
             'USER': 'kigen',
             'PASSWORD': '29584933',
             'HOST': '127.0.0.1',
@@ -172,7 +172,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL= "/"
-LOGOUT_REDIRECT_URL="/"
+LOGOUT_REDIRECT_URL="login"
 
 
 # Default primary key field type
