@@ -3,15 +3,15 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='repair-home'),
-    path('repairs/new', views.repairCreateView, name='repair-create'),
-    path('repairs/delete/<int:id>/', views.repairDelete, name='repair-delete'),
-    path('repairs/update/<int:id>/', views.repairUpdate, name='repair-update'),
+    path('', views.home, name='post-home'),
+    path('posts/new', views.repairCreateView, name='post-create'),
+    path('posts/delete/<int:id>/', views.repairDelete, name='post-delete'),
+    path('posts/update/<int:id>/', views.repairUpdate, name='post-update'),
     path('register', views.register, name='register'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='repair/registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='repair/registration/login.html'), name='logout'),
     path('profile/', views.profile, name='profile'),
     path('addprofile/<int:id>', views.addprof, name='addprofile'),
-    # path('repairs/post_detail/<slug:slug>/', views.post_detail, name='repair-post_detail')
-    
+    path('post/<slug:slug>/detail/', views.post_detail, name='post-detail'),
+    path('repair/<int:pk>', views.add_comment_to_post, name='add_comment_to_post'),
 ]    

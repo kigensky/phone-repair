@@ -92,3 +92,6 @@
 .navbar-custom .nav-item:hover .nav-link {
     color: #ffffff81;
 } 
+.comment {
+    margin: 20px 0px 20px 20px;
+}

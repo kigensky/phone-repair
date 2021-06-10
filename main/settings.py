@@ -94,7 +94,7 @@ if config('MODE')=="dev":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'repair',
+            'NAME': 'phoner',
             'USER': 'kigen',
             'PASSWORD': '29584933',
             'HOST': '127.0.0.1',

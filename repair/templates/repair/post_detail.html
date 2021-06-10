@@ -12,8 +12,7 @@
         <p class="card-text ">{{ post.content | safe }}</p>
       </div>
     </div>
-    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
-
+    
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         <!-- comments -->
@@ -43,12 +42,12 @@
         <form method="post" style="margin-top: 1.3em;">
           {{ comment_form.as_p }}
           {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+          
+          <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
         </form>
         {% endif %}
       </div>
     </div>
   </div>
 </div>
-
-{% endblock %}
+{% endblock content %}
