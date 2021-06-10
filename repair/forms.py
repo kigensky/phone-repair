@@ -23,7 +23,7 @@ class RepairForm(forms.ModelForm):
     
     class Meta:
         model = Repair
-        fields = ['title','description','subject']
+        fields = ['title','description','Operating_System']
         
 # class UserUpdateForm(forms.ModelForm):
 #     email = forms.EmailField()

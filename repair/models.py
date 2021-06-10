@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Subject(models.Model):
+class Operating_System(models.Model):
     name = models.CharField(max_length=100)
     
     def __str__(self):
@@ -15,7 +15,7 @@ class Repair(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    Operating_System = models.ForeignKey(Operating_System, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title

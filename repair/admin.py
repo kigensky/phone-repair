@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Repair,Subject,Profile, Comment
+from .models import Repair,Operating_System,Profile, Comment
 # Register your models here.
 
 admin.site.register(Repair)
-admin.site.register(Subject)
+admin.site.register(Operating_System)
 admin.site.register(Profile)
 admin.site.register(Comment)
 # class CommentAdmin(admin.ModelAdmin):
