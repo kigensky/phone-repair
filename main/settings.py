@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'repair',
+    'mathfilters',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +82,9 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
@@ -121,6 +125,12 @@ DATABASES = {
     }
 }
 
+
+cloudinary.config( 
+  cloud_name = "dh0tqdg08", 
+  api_key = "721889788919147", 
+  api_secret = "oonANg45wFmzdg3FZyCyjhPBvds" 
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

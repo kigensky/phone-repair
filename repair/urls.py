@@ -12,5 +12,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='repair/registration/login.html'), name='logout'),
     path('profile/', views.profile, name='profile'),
     path('addprofile/<int:id>', views.addprof, name='addprofile'),
+    # path('repairs/post_detail/<slug:slug>/', views.post_detail, name='repair-post_detail')
     
 ]    

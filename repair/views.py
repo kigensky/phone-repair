@@ -1,9 +1,10 @@
 from cloudinary.models import CloudinaryField
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from repair.models import Profile, Repair
-from repair.forms import ProfileForm, RepairForm, UserRegisterForm
+from repair.forms import ProfileForm, RepairForm, UserRegisterForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import cloudinary.uploader
 # Create your views here.
 
 
@@ -80,7 +81,7 @@ def register(request):
 def profile(request):
     user = request.user
 
-    return render(request,'reprofile/profile.html', {'user':user})
+    return render(request,'repair/profile/profile.html', {'user':user})
 
 
 @login_required
@@ -93,25 +94,42 @@ def addprof(request,id):
         file_to_upload = request.FILES['profile_photo']
 
         if form.is_valid():
-            upload_result = CloudinaryField.uploader.upload(file_to_upload)
-            new_result = remove_prefix(upload_result['secure_url'],'https://res.cloudinary.com/dtw9t2dom/')
+            # # upload_result = CloudinaryField.uploader.upload(file_to_upload)
+            # new_result = remove_prefix(upload_result['secure_url'],'https://res.cloudinary.com/dh0tqdg08/')
 
-            profile = Profile(profile_photo=new_result,
-                              bio=form.cleaned_data['bio'],
-                              user=request.user)
+            # profile = Profile(profile_photo=new_result,
+            #                   bio=form.cleaned_data['bio'],
+            #                   user=request.user)
 
-            profile.save_profile()
+            # profile.save_profile()
 
             messages.success(request, 'Successful profile creation.')
             return redirect('profile')
 
     ctx = {'form':form}
 
-    return render(request,'profile/update.html',ctx)
+    return render(request,'repair/profile/update.html',ctx)
+  
+def post_detail(request, slug):
+    template_name = 'repair/repair_detail.html'
+    post = get_object_or_404(Repair, slug=slug)
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
 
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
 
-
-def remove_prefix(text, prefix):
-    if text.startswith(prefix):
-        return text[len(prefix):]
-    return text    
+    return render(request, template_name, {'post': post,
+                                           'comments': comments,
+                                           'new_comment': new_comment,
+                                           'comment_form': comment_form})  
