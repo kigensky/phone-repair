@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Operating_System(models.Model):
     name = models.CharField(max_length=100)
     
@@ -13,6 +14,8 @@ class Operating_System(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    publish = models.DateTimeField(default=timezone.now)
     description = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
     Operating_System = models.ForeignKey(Operating_System, on_delete=models.CASCADE)
@@ -52,15 +55,18 @@ class Profile(models.Model):
         return f'{self.user.username}'   
         
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=200, null=True)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
+    
+    post = models.ForeignKey(Post,
+                             on_delete=models.CASCADE,
+                             related_name='comments')
+    name = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
+    content = models.TextField()
+    publish = models.DateTimeField(auto_now_add=True)
+    
 
-    def approve(self):
-        self.approved_comment = True
-        self.save()
+    class Meta:
+        ordering = ('publish',)
 
     def __str__(self):
-        return self.text
+        return f'Comment by {self.name}'

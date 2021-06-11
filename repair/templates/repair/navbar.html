@@ -19,7 +19,7 @@
         </li>
        </ul> 
       {% if user.is_authenticated %}
-      <form class="form-inline my-2 my-lg-0 mx-md-auto" method="POST" action="#">
+      <form class="form-inline my-2 my-lg-0 mx-md-auto" method="POST" action="{% url 'search' %}">
         {% csrf_token %}
         <input name='search' class="form-control form-control-sm mr-sm-3" type="search" placeholder="Search repair" aria-label="Search" required>
         <button class="btn btn-outline-info btn-sm my-2 my-sm-0" type="submit">
@@ -27,6 +27,8 @@
         </button>
       </form>
       {%endif%}
+       
+       
       {% if user.is_authenticated %}
       <ul class="navbar-nav mr-md-5">
         <li class="nav-item dropdown float-md-right">

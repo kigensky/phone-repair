@@ -1,5 +1,5 @@
 from cloudinary.models import CloudinaryField
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404,HttpResponseRedirect
 from repair.models import Profile, Post
 from repair.forms import CommentForm, ProfileForm, RepairForm, UserRegisterForm
 from django.contrib import messages
@@ -110,30 +110,26 @@ def addprof(request,id):
 
     return render(request,'repair/profile/update.html',ctx)
   
-def post_detail(request, slug):
-    template_name = 'repair/post_detail.html'
-    post = get_object_or_404(Post, slug=slug)
-    comments = post.comments.filter(active=True)
-    new_comment = None
-    # Comment posted
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
+def post_single(request, post):
+    
+    post = get_object_or_404(Post, slug=post)
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
+    comments = post.comments.filter(status=True)
+
+    user_comment = None
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            user_comment = comment_form.save(commit=False)
+            user_comment.post = post
+            user_comment.save()
+            return HttpResponseRedirect('/' + post.slug)
     else:
         comment_form = CommentForm()
+    return render(request, 'repair/post_detail.html', {'post': post, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form})
 
-    return render(request, template_name, {'post': post,
-                                           'comments': comments,
-                                           'new_comment': new_comment,
-                                           'comment_form': comment_form})
-                                           
+    
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -142,7 +138,22 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('post-detail', pk=post.pk)
+            return redirect('post_single', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'repair/add_comment_to_post.html', {'form': form})                                           
+    
+@login_required
+def search(request):
+
+    if request.method=='POST':
+
+        needle = request.POST['search']
+
+        posts=Post.objects.filter(title__icontains=needle).all()
+
+        ctx = {'posts':posts, 'search_results':f'Search Results ({posts.count()})'}
+
+        return render(request, 'repair/repair_list.html',ctx)
+
+    return redirect('post-home')    
