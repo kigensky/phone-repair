@@ -9,7 +9,9 @@ This is a flashcard django application intended to be used as an aid in memoriza
 ##  Live Link  
  Click [View Site](https://fundi-online.herokuapp.com/)  to visit the site
  
+## Figma Design
 
+Click [View Site](https://www.figma.com/file/5gCZtZNbx3D2UWuABL4Gh9/Untitled?node-id=0%3A1)
 
 ## User Story
 
