@@ -129,7 +129,7 @@ def post_single(request, post):
         comment_form = CommentForm()
     return render(request, 'repair/post_detail.html', {'post': post, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form})
 
-    
+@login_required    
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
